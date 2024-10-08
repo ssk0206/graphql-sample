@@ -3,9 +3,12 @@ package com.example.graphql_sample.presentation.controller;
 import com.example.graphql_sample.domain.model.Author;
 import com.example.graphql_sample.domain.model.Book;
 import com.example.graphql_sample.domain.repository.BookRepository;
+import com.example.graphql_sample.presentation.request.AddBookRequest;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -33,5 +36,13 @@ public class BookController {
     @SchemaMapping
     public Optional<Author> author(Book book) {
         return Author.getAuthorById(book.authorId());
+    }
+
+    @MutationMapping
+    public Book addBook(@Argument AddBookRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException();
+        }
+        return bookRepository.addBook(request);
     }
 }

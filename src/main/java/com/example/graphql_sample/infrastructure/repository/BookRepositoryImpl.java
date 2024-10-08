@@ -2,12 +2,15 @@ package com.example.graphql_sample.infrastructure.repository;
 
 import com.example.graphql_sample.domain.model.Book;
 import com.example.graphql_sample.domain.repository.BookRepository;
+import com.example.graphql_sample.presentation.request.AddBookRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
@@ -26,5 +29,9 @@ public class BookRepositoryImpl implements BookRepository {
 
     public List<Book> books() {
         return books;
+    }
+
+    public Book addBook(AddBookRequest request) {
+        return new Book(request.getId(), request.getName(), request.getPageCount(), request.getAuthorId());
     }
 }
