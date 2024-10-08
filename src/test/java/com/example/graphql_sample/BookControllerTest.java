@@ -1,6 +1,6 @@
 package com.example.graphql_sample;
 
-import com.example.graphql_sample.domain.Book;
+import com.example.graphql_sample.domain.model.Book;
 import com.example.graphql_sample.presentation.controller.BookController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

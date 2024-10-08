@@ -1,4 +1,4 @@
-package com.example.graphql_sample.domain;
+package com.example.graphql_sample.domain.model;
 
 import java.util.Arrays;
 import java.util.List;
