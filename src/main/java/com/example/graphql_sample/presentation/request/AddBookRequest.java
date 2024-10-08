@@ -9,10 +9,11 @@ import lombok.Data;
 @Data
 public class AddBookRequest {
 
-    @NotNull
+    @NotNull(message = "IDは必須項目です。")
     private Integer id;
 
-    @Size(min = 1, max = 100)
+    @NotNull(message = "名前は必須項目です。")
+    @Size(min = 1, max = 100, message = "1〜100文字の間で指定してください。")
     private String name;
 
     private Integer pageCount;
