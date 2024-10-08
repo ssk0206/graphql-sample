@@ -1,11 +1,12 @@
 package com.example.graphql_sample.presentation.controller;
 
+import com.example.graphql_sample.application.service.book.AddBookService;
+import com.example.graphql_sample.application.service.book.FindBookByIdService;
+import com.example.graphql_sample.application.service.book.FindBooksService;
 import com.example.graphql_sample.domain.model.Author;
 import com.example.graphql_sample.domain.model.Book;
-import com.example.graphql_sample.domain.repository.BookRepository;
 import com.example.graphql_sample.presentation.request.AddBookRequest;
 import jakarta.validation.Valid;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -20,17 +21,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookController {
 
-    @NonNull
-    private final BookRepository bookRepository;
+    private final FindBooksService findBooksService;
+    private final FindBookByIdService findBookByIdService;
+    private final AddBookService addBookService;
 
     @QueryMapping
     public List<Book> books() {
-        return bookRepository.books();
+        return findBooksService.exec();
     }
 
     @QueryMapping
     public Optional<Book> bookById(@Argument Integer id) {
-        return bookRepository.getBookById(id);
+        return findBookByIdService.exec(id);
     }
 
     @SchemaMapping
@@ -39,10 +41,7 @@ public class BookController {
     }
 
     @MutationMapping
-    public Book addBook(@Argument AddBookRequest request) {
-        if (request == null) {
-            throw new IllegalArgumentException();
-        }
-        return bookRepository.addBook(request);
+    public Book addBook(@Valid @Argument AddBookRequest request) {
+        return addBookService.exec(request.toParam());
     }
 }

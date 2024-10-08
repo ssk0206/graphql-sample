@@ -6,6 +6,7 @@ import com.example.graphql_sample.presentation.request.AddBookRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -14,14 +15,9 @@ import java.util.Optional;
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
-    public static List<Book> books = Arrays.asList(
-            new Book(1, "Quran", 604, 3),
-            new Book(2, "Harry", 700, 2),
-            new Book(3, "Foobar", 100, 1),
-            new Book(4, "Spring Boot", 344, 2)
-    );
+    public static List<Book> books = new ArrayList<>();
 
-    public Optional<Book> getBookById(Integer id) {
+    public Optional<Book> findBookById(Integer id) {
         return books.stream()
                 .filter(b -> b.id().equals(id))
                 .findFirst();
@@ -31,7 +27,8 @@ public class BookRepositoryImpl implements BookRepository {
         return books;
     }
 
-    public Book addBook(AddBookRequest request) {
-        return new Book(request.getId(), request.getName(), request.getPageCount(), request.getAuthorId());
+    public Book addBook(Book book) {
+        books.add(book);
+        return book;
     }
 }

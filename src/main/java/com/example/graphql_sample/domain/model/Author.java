@@ -9,9 +9,9 @@ public record Author(
         String name
 ) {
     public static List<Author> authors = Arrays.asList(
-            new Author(1, "東野圭吾"),
-            new Author(2, "村上春樹"),
-            new Author(3, "貴志裕介")
+            new Author(1, "夏目漱石"),
+            new Author(2, "森鴎外"),
+            new Author(3, "川端康成")
     );
 
     public static Optional<Author> getAuthorById(Integer id) {
